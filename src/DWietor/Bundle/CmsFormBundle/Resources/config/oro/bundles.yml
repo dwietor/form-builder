@@ -1,0 +1,2 @@
+bundles:
+    - { name: DWietor\Bundle\CmsFormBundle\DWietorCmsFormBundle, priority: 400 }

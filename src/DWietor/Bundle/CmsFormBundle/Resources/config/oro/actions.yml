@@ -1,0 +1,34 @@
+operations:
+    d_wietor_cms_form.action.resolve:
+        label: dwietor.cmsform.actions.resolve.label
+        enabled: true
+        applications: [default]
+        button_options:
+            icon: fa-check
+        datagrids:
+            - dwietor-cms-form-responses-grid
+        preconditions:
+            '@equal': [$.data.resolved, 0]
+        actions:
+            -   '@assign_value': [$.data.resolved, 1]
+            -   '@flush_entity': [$.data]
+            -   '@flash_message':
+                    message: dwietor.cmsform.actions.resolve.success
+                    type: 'success'
+
+    d_wietor_cms_form.action.unresolve:
+        label: dwietor.cmsform.actions.unresolve.label
+        enabled: true
+        applications: [default]
+        button_options:
+            icon: fa-undo
+        datagrids:
+            - dwietor-cms-form-responses-grid
+        preconditions:
+            '@equal': [$.data.resolved, 1]
+        actions:
+            -   '@assign_value': [$.data.resolved, 0]
+            -   '@flush_entity': [$.data]
+            -   '@flash_message':
+                    message: dwietor.cmsform.actions.unresolve.success
+                    type: 'success'

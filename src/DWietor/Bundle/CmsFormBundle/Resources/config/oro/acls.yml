@@ -1,0 +1,40 @@
+acls:
+    d_wietor_cms_form_view:
+        type: entity
+        class: DWietorCmsFormBundle:CmsForm
+        permission: VIEW
+        group_name: ""
+    d_wietor_cms_form_create:
+        type: entity
+        class: DWietorCmsFormBundle:CmsForm
+        permission: CREATE
+        group_name: ""
+    d_wietor_cms_form_update:
+        type: entity
+        class: DWietorCmsFormBundle:CmsForm
+        permission: EDIT
+        group_name: ""
+    d_wietor_cms_form_delete:
+        type: entity
+        class: DWietorCmsFormBundle:CmsForm
+        permission: DELETE
+        group_name: ""
+    d_wietor_cms_form_field_create:
+        type: entity
+        class: DWietorCmsFormBundle:CmsFormField
+        permission: CREATE
+        group_name: ""
+    d_wietor_cms_form_field_update:
+        type: entity
+        class: DWietorCmsFormBundle:CmsFormField
+        permission: EDIT
+        group_name: ""
+    d_wietor_cms_form_field_delete:
+        type: entity
+        class: DWietorCmsFormBundle:CmsFormField
+        permission: DELETE
+        group_name: ""
+    d_wietor_cms_frontend_form_respond:
+        type: action
+        label: dwietor.acl.d_wietor_cms_frontend_form_respond.label
+        group_name: "commerce"

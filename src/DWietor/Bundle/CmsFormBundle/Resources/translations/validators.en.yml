@@ -1,0 +1,6 @@
+dwietor:
+    cmsform:
+        validation:
+            cmsformfield:
+                unique:
+                    name: "Field name should be unique"

@@ -1,0 +1,4 @@
+layout:
+    actions:
+        - '@setFormTheme':
+            themes: 'DWietorCmsFormBundle:layouts:blank/cms_form.html.twig'

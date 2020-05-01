@@ -1,0 +1,34 @@
+DWietor\Bundle\CmsFormBundle\Entity\CmsFormField:
+    constraints:
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                fields: [ form, name ]
+                message: 'dwietor.cmsform.validation.cmsformfield.unique.name'
+    properties:
+        label:
+            - NotBlank: ~
+        name:
+            - NotBlank: ~
+            # Slugs are used for simplicity
+            - Oro\Bundle\ValidationBundle\Validator\Constraints\UrlSafe: ~
+        sortOrder:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+            - NotNull: ~
+
+DWietor\Bundle\CmsFormBundle\Entity\CmsForm:
+    constraints:
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: uuid
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: alias
+    properties:
+        name:
+            - NotBlank: ~
+        alias:
+            - NotBlank: ~
+            # Slugs are used for simplicity
+            - Oro\Bundle\ValidationBundle\Validator\Constraints\UrlSafe: ~
+
+DWietor\Bundle\CmsFormBundle\Entity\CmsFormNotification:
+    properties:
+        email:
+            - Email: ~

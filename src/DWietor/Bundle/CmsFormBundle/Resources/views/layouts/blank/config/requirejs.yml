@@ -1,0 +1,3 @@
+config:
+    paths:
+        'dwietorcmsform/js/app/components/form-component': 'bundles/dwietorcmsform/js/app/components/form-component.js'

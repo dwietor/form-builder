@@ -1,0 +1,24 @@
+navigation:
+    menu_config:
+        items:
+            cms_form_list:
+                label:           dwietor.cmsform.entity_plural_label
+                route:           'd_wietor_cms_form_index'
+                position:        110
+
+        tree:
+            application_menu:
+                children:
+                    marketing_tab:
+                        children:
+                            cms_form_list: ~
+
+    titles:
+        d_wietor_cms_form_index: ~
+        d_wietor_cms_form_view: 'dwietor.cmsform.navigation.view'
+        d_wietor_cms_form_create: oro.ui.create_entity
+        d_wietor_cms_form_update: 'dwietor.cmsform.navigation.form_update'
+        d_wietor_cms_form_field_create: oro.ui.create_entity
+        d_wietor_cms_form_field_update: 'dwietor.cmsform.navigation.field_update'
+        d_wietor_cms_form_responses: 'dwietor.cmsform.navigation.responses'
+        d_wietor_cms_form_frontend_form_preview: 'dwietor.cmsform.navigation.form_preview'

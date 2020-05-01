@@ -1,0 +1,13 @@
+{% extends 'OroUIBundle:actions:index.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+{% set gridName = 'dwietor-cms-forms-grid' %}
+{% set pageTitle = 'dwietor.cmsform.entity_plural_label'|trans %}
+
+{% block navButtons %}
+    {% if is_granted('d_wietor_cms_form_create') %}
+        {{ UI.addButton({
+            'path' : path('d_wietor_cms_form_create'),
+            'entity_label': 'dwietor.cmsform.entity_label'|trans
+        }) }}
+    {% endif %}
+{% endblock %}

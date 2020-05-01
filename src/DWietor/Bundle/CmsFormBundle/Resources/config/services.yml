@@ -1,0 +1,111 @@
+services:
+    DWietor\Bundle\CmsFormBundle\Twig\FormExtension:
+        class: DWietor\Bundle\CmsFormBundle\Twig\FormExtension
+        arguments:
+            - '@DWietor\Bundle\CmsFormBundle\Builder\FormBuilderInterface'
+            - '@oro_layout.twig.renderer'
+            - '@DWietor\Bundle\CmsFormBundle\Provider\GeneralFieldProvider'
+        tags:
+            - { name: twig.extension }
+
+    DWietor\Bundle\CmsFormBundle\Twig\EmailExtension:
+        class: DWietor\Bundle\CmsFormBundle\Twig\EmailExtension
+        tags:
+            - { name: twig.extension }
+
+    DWietor\Bundle\CmsFormBundle\Provider\FieldTypeProvider:
+        class: DWietor\Bundle\CmsFormBundle\Provider\FieldTypeProvider
+        tags:
+            - { name: d_wietor_cms_form.field_type_provider }
+
+    DWietor\Bundle\CmsFormBundle\Provider\FieldTypeRegistry:
+        class: DWietor\Bundle\CmsFormBundle\Provider\FieldTypeRegistry
+        arguments:
+            - !tagged d_wietor_cms_form.field_type_provider
+
+    DWietor\Bundle\CmsFormBundle\Builder\FormBuilderInterface:
+        class: DWietor\Bundle\CmsFormBundle\Builder\FormBuilder
+        arguments:
+            - '@form.factory'
+            - '@doctrine'
+            - '@DWietor\Bundle\CmsFormBundle\Provider\FieldTypeRegistry'
+            - '@router'
+            - '@DWietor\Bundle\CmsFormBundle\Validator\ConstraintProviderInterface'
+
+    DWietor\Bundle\CmsFormBundle\Provider\GeneralFieldProvider:
+        class: DWietor\Bundle\CmsFormBundle\Provider\GeneralFieldProvider
+
+    DWietor\Bundle\CmsFormBundle\Form\Extension\FieldOptionsExtension:
+        class: DWietor\Bundle\CmsFormBundle\Form\Extension\FieldOptionsExtension
+        tags:
+            - { name: form.type_extension, extended_type: DWietor\Bundle\CmsFormBundle\Form\Type\FieldType}
+
+    DWietor\Bundle\CmsFormBundle\Form\Extension\HiddenFieldExtension:
+        class: DWietor\Bundle\CmsFormBundle\Form\Extension\HiddenFieldExtension
+        tags:
+            - { name: form.type_extension, extended_type: DWietor\Bundle\CmsFormBundle\Form\Type\FieldType}
+
+    DWietor\Bundle\CmsFormBundle\Form\Extension\ChoiceFieldExtension:
+        class: DWietor\Bundle\CmsFormBundle\Form\Extension\ChoiceFieldExtension
+        tags:
+            - { name: form.type_extension, extended_type: DWietor\Bundle\CmsFormBundle\Form\Type\FieldType}
+
+    DWietor\Bundle\CmsFormBundle\Form\Extension\ReCaptchaFieldExtension:
+        tags:
+            - { name: form.type_extension, extended_type: DWietor\Bundle\CmsFormBundle\Form\Type\FieldType}
+
+    DWietor\Bundle\CmsFormBundle\Form\Type\FieldType:
+        class: DWietor\Bundle\CmsFormBundle\Form\Type\FieldType
+        arguments:
+            - '@DWietor\Bundle\CmsFormBundle\Provider\FieldTypeRegistry'
+            - '@translator'
+        tags:
+            - { name: form.type, alias: d_wietor_cms_form_field }
+
+    DWietor\Bundle\CmsFormBundle\EventListener\Datagrid\FormResponseListener:
+        class: DWietor\Bundle\CmsFormBundle\EventListener\Datagrid\FormResponseListener
+        arguments:
+            - '@doctrine'
+        tags:
+            - { name: kernel.event_listener, event: oro_datagrid.orm_datasource.result.after.dwietor-cms-form-responses-grid, method: onResultAfter }
+
+    DWietor\Bundle\CmsFormBundle\Notification\NotificationInterface:
+        class: DWietor\Bundle\CmsFormBundle\Notification\SendEmailNotification
+        arguments:
+            - '@oro_message_queue.message_producer'
+            - '@oro_email.email_renderer'
+            - '@oro_config.global'
+            - '@doctrine'
+
+    DWietor\Bundle\CmsFormBundle\Validator\ConstraintProviderInterface:
+        class: DWietor\Bundle\CmsFormBundle\Validator\ConstraintProvider
+        arguments:
+            - '@DWietor\Bundle\CmsFormBundle\Validator\Loader\ValidationRuleLoader'
+            - '@event_dispatcher'
+
+    DWietor\Bundle\CmsFormBundle\Validator\Loader\ValidationRuleLoader:
+        class: DWietor\Bundle\CmsFormBundle\Validator\Loader\ValidationRuleLoader
+        arguments:
+            - '@d_wietor_cms_form.validation.cache'
+
+    DWietor\Bundle\CmsFormBundle\Cache\CacheClearer:
+        class: DWietor\Bundle\CmsFormBundle\Cache\CacheClearer
+        arguments:
+            - '@DWietor\Bundle\CmsFormBundle\Validator\Loader\ValidationRuleLoader'
+        tags:
+            - { name: kernel.cache_warmer }
+            - { name: kernel.cache_clearer }
+
+    d_wietor_cms_form.validation.cache:
+        parent: oro.cache.abstract
+        public: false
+        calls:
+            - [setNamespace, [ 'd_wietor_cms_form_validation' ] ]
+
+    # API
+    d_wietor_cms_form.field_manager.api:
+        class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
+        parent: oro_soap.manager.entity_manager.abstract
+        arguments:
+            - DWietor\Bundle\CmsFormBundle\Entity\CmsFormField
+            - '@doctrine.orm.entity_manager'

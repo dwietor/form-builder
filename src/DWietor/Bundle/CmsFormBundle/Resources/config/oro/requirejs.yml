@@ -1,0 +1,4 @@
+config:
+    paths:
+        'dwietorcmsform/js/app/components/field-options-component': 'bundles/dwietorcmsform/js/app/components/field-options-component.js'
+        'dwietorcmsform/js/app/components/sortable-fields-component': 'bundles/dwietorcmsform/js/app/components/sortable-fields-component.js'
