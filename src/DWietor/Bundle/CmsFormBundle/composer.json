@@ -1,0 +1,21 @@
+{
+    "name": "dwietor/cms-form-builder",
+    "description": "DWietor - CMS Form Builder for OroCommerce to easily create forms via UI",
+    "license": "OSL-3.0",
+    "authors": [{
+        "name": "David Wietor",
+        "email": "davidwietor@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "exclude-from-classmap": [
+            "**/Tests/"
+        ]
+    },
+    "require": {
+        "oro/commerce": "4.1.*"
+    },
+    "minimum-stability": "dev"
+}
